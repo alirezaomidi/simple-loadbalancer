@@ -1,15 +1,15 @@
-import sys
 import socket
 
-HOST, PORT = 'localhost', 8000
+if __name__ == '__main__':
 
+    while True:
+        command = input().strip()
 
-while True:
-    command = input().strip()
+        command += '\n'
 
-    command += '\n'
+        sock = socket.socket()
+        status = sock.connect(('localhost', 8000))
 
-    sock = socket.socket()
-    sock.connect((HOST, PORT))
-    sock.send(command.encode('ascii'))
-    sock.close()
+        sock.sendall(command.encode('ascii'))
+        response = sock.recv(4096).decode('ascii')
+        print(response)
